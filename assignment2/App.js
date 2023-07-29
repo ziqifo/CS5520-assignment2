@@ -3,14 +3,14 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import EntryList from './component/EntryList';
-import AllEntry from './screen/AllEntriesScreen';
-import OverEntry from './screen/OverlimitEntriesScreen';
-import AddEntry from './screen/AddEntryScreen';
-import EditEntry from './screen/EditEntryScreen';
-import ButtonPressable from './component/ButtonPressable';
+import EntryList from './components/EntryList';
+import AllEntriesScreen from './screens/AllEntriesScreen';
+import OverEntry from './screens/OverlimitEntriesScreen';
+import AddEntryScreen from './screens/AddEntryScreen';
+import EditEntryScreen from './screens/EditEntryScreen';
+import ButtonPressable from './components/ButtonPressable';
 import { useState } from 'react';
-import myStyling from './styles';
+import styles from './MyStyles';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
     <Tab.Navigator>
       <Tab.Screen 
         name="All" 
-        component={AllEntry} 
+        component={AllEntriesScreen} 
         initialParams={{ 
           titleText: 'All Entries'
         }}
@@ -34,7 +34,7 @@ export default function App() {
                 <ButtonPressable
                   onPressed={() => {navigation.navigate('Add', { limit: limit });}}
                 >
-                  <AntDesign name="pluscircleo" size={16} color={myStyling.black} />
+                  <AntDesign name="pluscircleo" size={16} color={styles.black} />
                 </ButtonPressable>
               );
             },
@@ -43,7 +43,7 @@ export default function App() {
                 <AntDesign
                 name={focused ? "infocirlce" : "infocirlceo"}
                 size={18} 
-                color={focused ? myStyling.red : myStyling.black}
+                color={focused ? styles.red : styles.black}
                 />
               );
             },
@@ -65,7 +65,7 @@ export default function App() {
                 <ButtonPressable
                   onPressed={() => {navigation.navigate('Add', { limit: limit });}}
                 >
-                  <AntDesign name="pluscircleo" size={16} color={myStyling.black} />
+                  <AntDesign name="pluscircleo" size={16} color={styles.black} />
                 </ButtonPressable>
               );
             },
@@ -74,7 +74,7 @@ export default function App() {
                 <AntDesign 
                   name={focused ? "clockcircle" : "clockcircleo"}
                   size={18} 
-                  color={focused ? myStyling.red : myStyling.black} />
+                  color={focused ? styles.red : styles.black} />
               );
             },
             tabBarLabel: () => {
@@ -104,11 +104,11 @@ export default function App() {
           />
           <Stack.Screen
             name="Add"
-            component={AddEntry}
+            component={AddEntryScreen}
           />
           <Stack.Screen
             name="Edit"
-            component={EditEntry}
+            component={EditEntryScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
