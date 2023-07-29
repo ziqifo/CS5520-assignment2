@@ -1,9 +1,9 @@
 import { async } from "@firebase/util";
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, Pressable, Alert } from "react-native";
-import ButtonPressable from "../component/ButtonPressable";
-import { writeToDB } from "../dataSource/FireStoreHelper";
-import myStyling from "../resource/MyStyles";
+import ButtonPressable from "../components/ButtonPressable";
+import { writeToDB } from "../Firebase/firestoreHelper";
+import styles from "../MyStyles";
 
 function isValidNumber(p) {
     return !isNaN(p) && parseInt(p) >= 0;
@@ -38,31 +38,31 @@ export default function AddEntryScreen({ route, navigation }) {
 
     return (
         <View>
-            <View style={[myStyling.rowAlignContainer, myStyling.textAlignContainer]}>
-                <Text style={myStyling.boldText}>
-                    Calories:
+            <View style={[styles.rowAlignContainer, styles.textAlignContainer]}>
+                <Text style={styles.boldText}>
+                    Calories
                 </Text>
                 <TextInput
                     value={calory}
                     onChangeText={ txt => setCalory(txt.trim()) }
-                    style={ myStyling.inputBox }
+                    style={ styles.inputBox }
                 >
                 </TextInput>
             </View>
-            <View style={[myStyling.rowAlignContainer, myStyling.textAlignContainer]}>
-                <Text style={myStyling.boldText}>
-                    Description:
+            <View style={[styles.rowAlignContainer, styles.textAlignContainer]}>
+                <Text style={styles.boldText}>
+                    Description
                 </Text>
                 <TextInput
                     value={name}
                     onChangeText={ txt => setName(txt) }
-                    style={ [myStyling.inputBox, myStyling.multiLineTBox] }
+                    style={ [styles.inputBox, styles.multiLineTBox] }
                     multiline={true}
                 >
                 </TextInput>
             </View>
 
-            <View style={myStyling.rowAlignContainer}>
+            <View style={styles.rowAlignContainer}>
                 <ButtonPressable
                     onPressed={() => {rfunc();}}
                 >
