@@ -1,45 +1,31 @@
-import { collection, addDoc, doc, deleteDoc, updateDoc, getDocs, query, where } from "firebase/firestore";
-import { database } from "./firebase-setup";
+import { addDoc, collection, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { firestore } from "./firebase-setup";
 
-export async function deleteFromDB(docID) {
-  try {
-    await deleteDoc(doc(database, "entries", docID));
-  } catch (err) {
-    console.log("Error deleting doc ", err);
-  }
-}
+const collectId = 'meals';
 
-export async function writeToDB(entry) {
-  try {
-    const docRef = await addDoc(collection(database, "entries"), entry);
-    return docRef.id;
-  } catch (err) {
-    console.log("Error writing to DB ", err);
-  }
-}
-
-export async function updateDB(docID, data) {
-  try {
-    await updateDoc(doc(database, "entries", docID), data);
-  } catch (err) {
-    console.log("Error updating doc ", err);
-  }
-}
-
-export async function readFromDB(condition) {
-  let entries = [];
-  try {
-    let querySnapshot;
-    if(condition) {
-      querySnapshot = await getDocs(query(collection(database, "entries"), where("calories", ">", condition)));
-    } else {
-      querySnapshot = await getDocs(collection(database, "entries"));
+export async function writeToDB( { meal } ) {
+    try {
+        const docRef = await addDoc(collection(firestore, collectId), meal);
+    } catch (err) {
+       console.err("ERROR:" , err); 
     }
-    querySnapshot.forEach((doc) => {
-      entries.push({...doc.data(), id: doc.id});
-    });
-  } catch (err) {
-    console.log("Error reading from DB ", err);
-  }
-  return entries;
+}
+
+export async function deleteFromDB({ docid }) {
+    try {
+        await deleteDoc(doc(firestore, collectId, docid));
+    } catch (err) {
+        console.err(err);
+    }
+}
+
+export async function updateDB({ docid }) {
+    try {
+        const docRef = doc(firestore, collectId, docid);
+        await updateDoc(docRef, {
+            reviewed: true
+        });
+    } catch (err) {
+        console.err(err);
+    }
 }
